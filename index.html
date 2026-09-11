@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Little Bunny 🐰💕</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for cute typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Fredoka', 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #FFF0F5 0%, #FFFDF7 50%, #FFE4E1 100%);
+            color: #5A4A42;
+            overflow-x: hidden;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Floating background items animation */
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(8deg); }
+        }
+
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(15px) rotate(-8deg); }
+        }
+
+        @keyframes pulse-cute {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-4deg); }
+            50% { transform: rotate(4deg); }
+        }
+
+        @keyframes hop {
+            0%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-22px) scaleY(1.05); }
+            50% { transform: translateY(0) scaleY(0.95); }
+        }
+
+        @keyframes music-beat {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .animate-float { animation: float-slow 4s ease-in-out infinite; }
+        .animate-float-delayed { animation: float-reverse 5s ease-in-out infinite 1s; }
+        .animate-pulse-cute { animation: pulse-cute 2.5s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 2s ease-in-out infinite; }
+        .animate-hop { animation: hop 1.8s ease-in-out infinite; }
+        .animate-music { animation: music-beat 1.2s ease-in-out infinite; }
+
+        /* Custom glassmorphism card styling */
+        .cute-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border: 3px solid #FFF0F5;
+            box-shadow: 0 15px 35px -5px rgba(255, 182, 193, 0.4), 0 0 15px rgba(255, 192, 203, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cute-card:hover, .cute-card:active {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 22px 40px -5px rgba(255, 105, 180, 0.35), 0 0 20px rgba(255, 182, 193, 0.5);
+            border-color: #FFB6C1;
+        }
+
+        .cute-btn {
+            background: linear-gradient(135deg, #FF8DA1 0%, #FF6B8B 100%);
+            box-shadow: 0 8px 20px rgba(255, 107, 139, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .cute-btn:hover {
+            background: linear-gradient(135deg, #FF6B8B 0%, #FF477E 100%);
+            box-shadow: 0 12px 25px rgba(255, 107, 139, 0.6);
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .cute-btn:active {
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Particle heart click effect style */
+        .click-particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            font-size: 1.5rem;
+            animation: particleFade 1s forwards ease-out;
+        }
+
+        @keyframes particleFade {
+            0% { opacity: 1; transform: translate(0, 0) scale(0.8); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(1.4) rotate(20deg); }
+        }
+
+        /* Floating background decoration absolute layer */
+        .bg-floating-element {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.65;
+            filter: drop-shadow(0 4px 6px rgba(255,182,193,0.3));
+        }
+
+        /* Custom scrollbar for cute look */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #FFF0F5; }
+        ::-webkit-scrollbar-thumb { background: #FFB6C1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FF8DA1; }
+    </style>
+</head>
+<body class="relative min-h-screen pb-12 flex flex-col justify-between">
+
+    <div id="bg-decorations" class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="bg-floating-element text-3xl sm:text-4xl animate-float top-[8%] left-[5%]">💕</div>
+        <div class="bg-floating-element text-3xl sm:text-4xl animate-float-delayed top-[15%] right-[8%]">🌸</div>
+        <div class="bg-floating-element text-4xl sm:text-5xl animate-float top-[40%] left-[3%]">🥕</div>
+        <div class="bg-floating-element text-3xl sm:text-4xl animate-float-delayed top-[45%] right-[5%]">🐰</div>
+        <div class="bg-floating-element text-3xl sm:text-4xl animate-float top-[70%] left-[7%]">✨</div>
+        <div class="bg-floating-element text-4xl sm:text-5xl animate-float-delayed top-[80%] right-[7%]">💗</div>
+        <div class="bg-floating-element text-3xl sm:text-4xl animate-float top-[25%] left-[88%]">🌷</div>
+        <div class="bg-floating-element text-3xl sm:text-4xl animate-float-delayed top-[60%] left-[85%]">🥕</div>
+    </div>
+
+    <div class="relative z-10 container mx-auto px-4 max-w-4xl">
+        
+        <header class="pt-8 pb-6 text-center">
+            <!-- Top Cute Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 font-medium text-sm mb-4 shadow-sm border border-pink-200 animate-pulse-cute">
+                <span>🌸</span>
+                <span>Selamat Datang di Dunia Kelinci Imut</span>
+                <span>🌸</span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 class="text-4xl sm:text-6xl font-bold text-pink-600 tracking-wide drop-shadow-md mb-3 flex items-center justify-center gap-2 flex-wrap">
+                <span>My Little Bunny</span>
+                <span class="inline-block animate-bounce">🐰💕</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg sm:text-2xl text-pink-500 font-semibold max-w-xl mx-auto leading-relaxed px-2 drop-shadow-sm">
+                “Si kecil yang selalu berhasil bikin hari jadi lebih bahagia.”
+            </p>
+
+            <!-- Cute Bunny Avatar Illustration Header -->
+            <div class="mt-6 relative inline-block">
+                <div class="w-32 h-32 sm:w-40 sm:h-40 mx-auto rounded-full bg-gradient-to-tr from-pink-200 via-pink-100 to-white p-2 shadow-xl border-4 border-white animate-hop cursor-pointer" onclick="triggerHop(this)" title="Klik aku untuk melompat! 🐰">
+                    <img src="https://images.unsplash.com/photo-1585110396000-c9ffd4e4b308?auto=format&fit=crop&w=500&q=80" 
+                         alt="Cute White Bunny Header" 
+                         class="w-full h-full object-cover rounded-full border-2 border-pink-200">
+                </div>
+                <span class="absolute -bottom-2 right-0 bg-white px-3 py-1 rounded-full text-xs font-bold text-pink-500 shadow-md border border-pink-100 animate-wiggle">
+                    Halo! 🐾
+                </span>
+            </div>
+        </header>
+
+        <section class="my-6 text-center">
+            <div class="cute-card rounded-3xl p-4 sm:p-6 max-w-md mx-auto flex flex-col items-center justify-center gap-3 relative overflow-hidden">
+                <div class="flex items-center gap-2 text-pink-600 font-bold text-lg">
+                    <i class="fa-solid fa-music text-pink-400 text-xl animate-bounce"></i>
+                    <span>Musik Santai & Ceria 🎵</span>
+                </div>
+                <p class="text-xs text-pink-400 font-medium">Putar musik lembut untuk menemani harimu bersama kelinci!</p>
+
+                <!-- Music Button -->
+                <button id="musicToggleBtn" 
+                        onclick="toggleMusic()" 
+                        class="cute-btn text-white font-bold px-8 py-3.5 rounded-full text-lg flex items-center gap-3 shadow-lg hover:shadow-pink-300 transform active:scale-95 transition-all">
+                    <span id="musicBtnIcon" class="text-xl"><i class="fa-solid fa-play"></i></span>
+                    <span id="musicBtnText">Play Music 🎵</span>
+                </button>
+
+                <!-- Audio Visualizer Indicator Dots -->
+                <div id="musicVisualizer" class="hidden flex items-center gap-1.5 mt-1">
+                    <span class="w-2 h-4 bg-pink-400 rounded-full animate-pulse"></span>
+                    <span class="w-2 h-7 bg-pink-500 rounded-full animate-pulse delay-100"></span>
+                    <span class="w-2 h-5 bg-pink-400 rounded-full animate-pulse delay-200"></span>
+                    <span class="w-2 h-8 bg-pink-600 rounded-full animate-pulse delay-300"></span>
+                    <span class="w-2 h-4 bg-pink-400 rounded-full animate-pulse delay-150"></span>
+                </div>
+            </div>
+        </section>
+
+        <section class="my-10">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl sm:text-4xl font-bold text-pink-600 inline-block relative">
+                    <span class="relative z-10"> My Cute Bunny 📸</span>
+                    <div class="h-3 bg-pink-200 rounded-full absolute bottom-1 left-0 right-0 -z-0 opacity-70"></div>
+                </h2>
+                <p class="text-sm text-pink-400 mt-2">Dua kelinci paling kesayangan dan paling menggemaskan 💖</p>
+            </div>
+
+            <!-- Grid container for exactly 2 photo cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 px-2 sm:px-4">
+
+                <!-- CARD 1: Si Gemoy 🐰 -->
+                <div class="cute-card rounded-3xl p-5 flex flex-col justify-between relative group overflow-hidden">
+                    <!-- Subtle Sparkle Tag -->
+                    <div class="absolute top-8 right-8 z-20 bg-pink-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                        #1 Tergemoy 💖
+                    </div>
+
+                    <!-- Photo Container -->
+                    <div class="relative overflow-hidden rounded-2xl mb-4 shadow-inner aspect-[4/3] bg-pink-100">
+                        <img src="https://raw.githubusercontent.com/shuchanzz11-maker/kelincilucu/080e807812d76ad8119ab02e069f6346e27f7ae5/vq7vhfgriajx2q8.jpeg" 
+                             alt="Kelinci Si Gemoy" 
+                             onerror="this.src='https://github.com/shuchanzz11-maker/kelincilucu/raw/080e807812d76ad8119ab02e069f6346e27f7ae5/vq7vhfgriajx2q8.jpeg'"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="text-center flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-pink-600 mb-2 flex items-center justify-center gap-1">
+                                Si Gemoy 🐰
+                            </h3>
+                            <p class="text-gray-600 font-medium text-base sm:text-lg leading-relaxed bg-pink-50/60 p-3 rounded-2xl border border-pink-100/80 mb-4">
+                                “Mukanya polos, tingkahnya bikin gemas setiap hari 💕”
+                            </p>
+                        </div>
+
+                        <!-- Interactive Button inside card -->
+                        <button onclick="petBunny('Si Gemoy')" 
+                                class="w-full py-2.5 px-4 bg-pink-100 hover:bg-pink-200 text-pink-600 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 border border-pink-300/50 shadow-sm active:scale-95">
+                            <span>Elus Si Gemoy 🐾</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- CARD 2: Si Imut 🥕 -->
+                <div class="cute-card rounded-3xl p-5 flex flex-col justify-between relative group overflow-hidden">
+                    <!-- Subtle Sparkle Tag -->
+                    <div class="absolute top-8 right-8 z-20 bg-amber-500/80 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                        #2 Terimut 🥕
+                    </div>
+
+                    <!-- Photo Container -->
+                    <div class="relative overflow-hidden rounded-2xl mb-4 shadow-inner aspect-[4/3] bg-orange-50">
+                        <img src="https://raw.githubusercontent.com/shuchanzz11-maker/kelincilucu/080e807812d76ad8119ab02e069f6346e27f7ae5/Screenshot-2021-08-10-182606.png" 
+                             alt="Kelinci Si Imut" 
+                             onerror="this.src='https://github.com/shuchanzz11-maker/kelincilucu/raw/080e807812d76ad8119ab02e069f6346e27f7ae5/Screenshot-2021-08-10-182606.png'"
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="text-center flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-amber-600 mb-2 flex items-center justify-center gap-1">
+                                Si Imut 🥕
+                            </h3>
+                            <p class="text-gray-600 font-medium text-base sm:text-lg leading-relaxed bg-amber-50/60 p-3 rounded-2xl border border-amber-100/80 mb-4">
+                                “Kecil, lucu, dan selalu berhasil mencuri perhatian 🥹💗”
+                            </p>
+                        </div>
+
+                        <!-- Interactive Button inside card -->
+                        <button onclick="feedCarrot('Si Imut')" 
+                                class="w-full py-2.5 px-4 bg-amber-100 hover:bg-amber-200 text-amber-700 font-bold rounded-2xl transition-all duration-300 flex items-center justify-center gap-2 border border-amber-300/50 shadow-sm active:scale-95">
+                            <span>Beri Wortel 🥕</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="my-8 text-center">
+            <div class="bg-white/70 backdrop-blur-md rounded-3xl p-6 border-2 border-dashed border-pink-200 max-w-lg mx-auto shadow-sm">
+                <h3 class="text-lg font-bold text-pink-600 mb-2">Pemberi Kasih Sayang 🥕💕</h3>
+                <p class="text-xs text-gray-500 mb-4">Klik tombol di bawah ini untuk membagikan wortel cinta ke kelinci!</p>
+                <div class="flex items-center justify-center gap-4 flex-wrap">
+                    <button onclick="giveLove()" class="cute-btn px-6 py-2.5 rounded-full text-white font-bold text-sm flex items-center gap-2">
+                        <span>Kirim Peluk & Cinta 💗</span>
+                    </button>
+                    <span id="loveCounter" class="bg-pink-100 text-pink-600 px-4 py-2 rounded-full font-bold text-sm border border-pink-200">
+                        ❤️ <span id="countNum">128</span> Cinta
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-12 mb-6 text-center relative z-10">
+            <div class="cute-card rounded-3xl p-8 max-w-2xl mx-auto relative overflow-hidden">
+                <!-- Floating Decorative Hearts & Carrots moving slowly inside penutup -->
+                <span class="absolute top-3 left-4 text-2xl animate-float opacity-75">💕</span>
+                <span class="absolute bottom-4 right-5 text-3xl animate-float-delayed opacity-75">🥕</span>
+                <span class="absolute top-4 right-8 text-2xl animate-float opacity-70">🌸</span>
+                <span class="absolute bottom-3 left-6 text-2xl animate-float-delayed opacity-80">🐰</span>
+
+                <!-- Main Closing Text -->
+                <p class="text-2xl sm:text-3xl font-bold text-pink-600 leading-relaxed drop-shadow-sm my-2">
+                    “Kelinci kecil, tapi kebahagiaannya besar banget 🐰💗”
+                </p>
+
+                <div class="w-24 h-1 bg-gradient-to-r from-transparent via-pink-300 to-transparent mx-auto my-4 rounded-full"></div>
+
+                <p class="text-xs text-pink-400 font-medium tracking-wider uppercase">
+                    Dibuat dengan penuh cinta & kehangatan ✨
+                </p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        let isPlaying = false;
+        let audioCtx = null;
+        let loveCount = 128;
+
+        // Custom audio element using user's MP3 link (converted to raw content stream)
+        const bgAudio = new Audio('https://raw.githubusercontent.com/shuchanzz11-maker/kelincilucu/080e807812d76ad8119ab02e069f6346e27f7ae5/Kimya%20Dawson%20-%20You%20Love%20Me.mp3');
+        bgAudio.loop = true;
+
+        function initAudioEngine() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function toggleMusic() {
+            initAudioEngine();
+            const btnText = document.getElementById('musicBtnText');
+            const btnIcon = document.getElementById('musicBtnIcon');
+            const btn = document.getElementById('musicToggleBtn');
+            const visualizer = document.getElementById('musicVisualizer');
+
+            if (!isPlaying) {
+                bgAudio.play().then(() => {
+                    isPlaying = true;
+                    btnText.innerText = "Pause Music ⏸️";
+                    btnIcon.innerHTML = `<i class="fa-solid fa-pause"></i>`;
+                    btn.classList.add('animate-music', 'ring-4', 'ring-pink-200');
+                    visualizer.classList.remove('hidden');
+
+                    createBurstParticles(window.innerWidth / 2, window.innerHeight / 2, ['🎵', '🎶', '✨', '💕']);
+                }).catch(err => {
+                    console.log("Audio play error, retrying:", err);
+                    showCuteToast("Klik sekali lagi untuk memutar lagu 🎵");
+                });
+            } else {
+                bgAudio.pause();
+                isPlaying = false;
+                btnText.innerText = "Play Music 🎵";
+                btnIcon.innerHTML = `<i class="fa-solid fa-play"></i>`;
+                btn.classList.remove('animate-music', 'ring-4', 'ring-pink-200');
+                visualizer.classList.add('hidden');
+            }
+        }
+
+        function triggerHop(el) {
+            el.classList.remove('animate-hop');
+            void el.offsetWidth; // trigger reflow
+            el.classList.add('animate-hop');
+            playCuteSound(880);
+            createBurstParticles(event.clientX || window.innerWidth/2, event.clientY || 200, ['🐰', '✨', '💖']);
+        }
+
+        function petBunny(name) {
+            playCuteSound(659.25);
+            createBurstParticles(event.clientX, event.clientY, ['💕', '🐾', '🌸', '✨']);
+            showCuteToast(`Kamu mengelus ${name}! Dia senang sekali 🐾💖`);
+        }
+
+        function feedCarrot(name) {
+            playCuteSound(783.99);
+            createBurstParticles(event.clientX, event.clientY, ['🥕', '😋', '✨', '💗']);
+            showCuteToast(`Nyam nyam! ${name} melahap wortel lezat 🥕😋`);
+        }
+
+        function giveLove() {
+            loveCount++;
+            document.getElementById('countNum').innerText = loveCount;
+            playCuteSound(1046.5);
+            createBurstParticles(event.clientX, event.clientY, ['❤️', '💖', '🌸', '🥕']);
+            showCuteToast(`Terima kasih atas cintanya! 💖🐰`);
+        }
+
+        function playCuteSound(freq = 600) {
+            try {
+                initAudioEngine();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.15);
+                gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.2);
+            } catch (e) {}
+        }
+
+        function createBurstParticles(x, y, items = ['💕', '🥕', '🌸', '✨']) {
+            if (!x || !y) return;
+            const count = 6;
+            for (let i = 0; i < count; i++) {
+                const el = document.createElement('div');
+                el.className = 'click-particle';
+                el.innerText = items[Math.floor(Math.random() * items.length)];
+                
+                const angle = (Math.PI * 2 / count) * i;
+                const distance = 40 + Math.random() * 50;
+                const tx = Math.cos(angle) * distance + 'px';
+                const ty = Math.sin(angle) * distance - 30 + 'px';
+
+                el.style.left = (x - 12) + 'px';
+                el.style.top = (y - 12) + 'px';
+                el.style.setProperty('--tx', tx);
+                el.style.setProperty('--ty', ty);
+
+                document.body.appendChild(el);
+                setTimeout(() => el.remove(), 1000);
+            }
+        }
+
+        // Global click handler to spawn cute hearts on tap
+        document.addEventListener('click', function(e) {
+            // Avoid creating particle directly on big buttons to keep UI clean
+            if (e.target.closest('button')) return;
+            const cuteSymbols = ['💕', '🌸', '✨', '🥕', '🐰'];
+            const symbol = cuteSymbols[Math.floor(Math.random() * cuteSymbols.length)];
+            
+            const p = document.createElement('div');
+            p.className = 'click-particle';
+            p.innerText = symbol;
+            p.style.left = (e.clientX - 10) + 'px';
+            p.style.top = (e.clientY - 10) + 'px';
+            p.style.setProperty('--tx', (Math.random() * 60 - 30) + 'px');
+            p.style.setProperty('--ty', (-40 - Math.random() * 40) + 'px');
+
+            document.body.appendChild(p);
+            setTimeout(() => p.remove(), 1000);
+        });
+
+        function showCuteToast(message) {
+            const existing = document.getElementById('cute-toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.id = 'cute-toast';
+            toast.className = 'fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-pink-600 text-white font-bold px-6 py-3 rounded-full shadow-2xl z-50 text-sm sm:text-base flex items-center gap-2 border-2 border-pink-200 animate-bounce';
+            toast.innerHTML = `<span>✨</span><span>${message}</span>`;
+
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.transition = 'opacity 0.5s ease';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 2500);
+        }
+    </script>
+</body>
+</html>
